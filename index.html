@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Pay – Safe Pay</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="lockScreen" class="lock-screen hidden">
+  <div class="lock-card">
+    <div class="logo shield">✓</div>
+    <h1>Easy Pay <span>Safe Pay</span></h1>
+    <p id="lockText">Enter your app password to continue.</p>
+    <div id="lockDots" class="pin-dots"></div>
+    <input id="lockInput" class="pin-input" type="password" inputmode="numeric" maxlength="6" placeholder="Password / PIN">
+    <button class="primary wide" onclick="unlockApp()">Unlock</button>
+    <button class="link-btn" onclick="forgotAppPassword()">Forgot password?</button>
+    <div id="lockMsg" class="error"></div>
+  </div>
+</div>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-shield">✓</div>
+      <div><b>Easy Pay</b><span>Safe Pay</span><small>Your Digital Assistant</small></div>
+    </div>
+    <nav id="nav">
+      <button data-page="home" class="nav-btn active">⌂ <span data-i18n="home">Home</span></button>
+      <button data-page="payment" class="nav-btn">➤ <span data-i18n="makePayment">Make a Payment</span></button>
+      <button data-page="balance" class="nav-btn">₹ <span data-i18n="checkBalance">Check Balance</span></button>
+      <button data-page="bills" class="nav-btn">▣ <span data-i18n="payBill">Pay a Bill</span></button>
+      <button data-page="upi" class="nav-btn">🔑 <span data-i18n="changeUpi">Change UPI PIN</span></button>
+      <button data-page="forgotPin" class="nav-btn">❓ <span data-i18n="forgotUpi">Forgot UPI PIN</span></button>
+      <button data-page="scam" class="nav-btn">🛡 <span data-i18n="checkMessage">Check a Message</span></button>
+      <button data-page="history" class="nav-btn">◷ <span data-i18n="history">History</span></button>
+      <button data-page="settings" class="nav-btn">⚙ <span data-i18n="settings">Settings</span></button>
+    </nav>
+    <div class="senior-card">
+      <div class="avatar">👴</div>
+      <div><b data-i18n="seniorMode">Senior Mode</b><span id="seniorStatus">ON</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-brand">Easy Pay – Safe Pay</div>
+      <div class="top-actions">
+        <select id="language" aria-label="Language">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="bn">বাংলা</option>
+        </select>
+        <button class="icon-btn" onclick="showPage('settings')">⚙</button>
+        <button class="window-btn" onclick="window.close()">×</button>
+      </div>
+    </header>
+
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">EASY PAY • SAFE PAY</div>
+          <h1 id="homeGreeting">Hello!</h1>
+          <h2 data-i18n="howHelp">How can I help you today?</h2>
+          <p data-i18n="homeSub">I can guide you through digital payments and essential services safely.</p>
+        </div>
+        <div class="robot" id="robotHome">🤖</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-orb" id="homeOrb">🎙</div>
+        <div><b data-i18n="speakToMe">Speak to me</b><span data-i18n="voiceHint">Say what you want to do, or choose an option below.</span></div>
+        <button class="primary" onclick="startVoice('home')">🎙 <span data-i18n="pressSpeak">Press & Speak</span></button>
+      </div>
+      <div class="quick-grid">
+        <button class="quick blue" onclick="showPage('payment')"><strong>➤</strong><b data-i18n="makePayment">Make a Payment</b><small>UPI</small></button>
+        <button class="quick green" onclick="showPage('balance')"><strong>₹</strong><b data-i18n="checkBalance">Check Balance</b><small>Account</small></button>
+        <button class="quick orange" onclick="showPage('bills')"><strong>▣</strong><b data-i18n="payBill">Pay a Bill</b><small>Electricity • Mobile</small></button>
+        <button class="quick red" onclick="showPage('scam')"><strong>🛡</strong><b data-i18n="checkMessage">Check a Message</b><small>Scam protection</small></button>
+      </div>
+      <div class="info-strip"><span>🛡</span><b data-i18n="safetyPriority">Your safety comes first.</b><small data-i18n="safetySub">I will explain every important step before money moves.</small></div>
+    </section>
+
+    <section id="page-payment" class="page">
+      <div class="page-title"><button class="back" onclick="showPage('home')">←</button><div><h1 data-i18n="makePayment">Make a Payment</h1><p data-i18n="paymentSub">I will guide you step by step.</p></div></div>
+      <div class="steps"><span class="on">1 Details</span><span>2 Confirm</span><span>3 Safety Check</span><span>4 Complete</span></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="assistant-line"><div class="mini-robot">🤖</div><div><b data-i18n="tellDetails">Tell me who you want to pay and how much.</b><small>Example: “Send 500 rupees to Rahul.”</small></div></div>
+          <div class="voice-entry">
+            <button class="voice-big" onclick="startVoice('payment')">🎙<span>Tap & Speak</span></button>
+            <div class="or">or type below</div>
+            <input id="voiceText" placeholder="e.g. Send 500 rupees to Rahul">
+          </div>
+          <div class="form-grid">
+            <label>Receiver Name<input id="receiver" placeholder="Rahul Kumar"></label>
+            <label>UPI ID<input id="upiId" placeholder="rahul@upi"></label>
+            <label>Amount (₹)<input id="amount" type="number" min="1" placeholder="500"></label>
+            <label>Note (optional)<input id="note" placeholder="Rent / Grocery"></label>
+          </div>
+          <button class="primary wide" onclick="parseOrContinue()">Continue →</button>
+          <div id="paymentMsg" class="muted"></div>
+        </div>
+        <div class="card tips"><h3>🛡 Safe payment tips</h3><p>✓ Send money only to people you know.</p><p>✓ Check the receiver name carefully.</p><p>✓ Never share your UPI PIN.</p><p>✓ If something feels suspicious, stop.</p></div>
+      </div>
+    </section>
+
+    <section id="page-confirm" class="page">
+      <div class="page-title"><button class="back" onclick="showPage('payment')">←</button><div><h1>Confirm Payment</h1><p>Listen carefully before continuing.</p></div></div>
+      <div class="card confirm-card">
+        <div class="confirm-main">
+          <div class="profile-circle" id="confirmAvatar">R</div>
+          <div><h2 id="confirmName">Rahul Kumar</h2><p id="confirmUpi">rahul@upi</p></div>
+          <div class="amount-big" id="confirmAmount">₹500</div>
+        </div>
+        <div class="voice-confirm">
+          <div class="wave">▁▃▅▇▅▃▁▃▅▇▅▃▁</div>
+          <p id="confirmSpeech">You are about to send ₹500 to Rahul Kumar. Is this correct?</p>
+          <div class="confirm-actions">
+            <button class="success" onclick="runSafety()">✓ Yes, this is correct</button>
+            <button class="danger" onclick="showPage('payment')">✕ No, change details</button>
+          </div>
+          <button class="secondary" onclick="speakCurrentPayment()">🔊 Hear again</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-safety" class="page">
+      <div class="page-title"><div><h1>Safety Check</h1><p>Checking for scam patterns before money moves.</p></div></div>
+      <div id="safetyPanel" class="card safety-card"></div>
+    </section>
+
+    <section id="page-demo" class="page">
+      <div class="page-title"><div><h1>Demo Payment</h1><p>This is a safe simulation. No real money will be sent.</p></div></div>
+      <div class="card demo-card">
+        <div class="success-icon">✓</div><h2>Demo Payment Confirmation</h2>
+        <div class="receipt-mini"><span>To</span><b id="demoName"></b><span>UPI ID</span><b id="demoUpi"></b><span>Amount</span><strong id="demoAmount"></strong><span>Note</span><b id="demoNote"></b></div>
+        <div class="info-strip" style="margin-top:12px;text-align:left"><span>🛡</span><div><b>Demo only</b><small style="display:block">No real money will be sent and no real UPI PIN is collected.</small></div></div>
+        <button class="primary wide" onclick="completeDemo()">Confirm Demo Payment</button>
+        <button class="secondary wide" onclick="showPage('payment')">Cancel</button>
+      </div>
+    </section>
+
+    <section id="page-success" class="page">
+      <div class="success-page"><div class="success-icon">✓</div><h1>Payment Successful!</h1><div class="success-amount" id="successAmount">₹500</div><p id="successText">Demo payment completed safely.</p><div><button class="primary" onclick="showPage('history')">View Receipt</button><button class="secondary" onclick="showPage('payment')">Make Another</button></div></div>
+    </section>
+
+    <section id="page-balance" class="page">
+      <div class="page-title"><div><h1 data-i18n="checkBalance">Check Balance</h1><p>View a safe demo account balance and recent activity.</p></div></div>
+      <div class="balance-card"><div><small>Demo Account</small><h1>₹12,450.75</h1><span>Last updated just now</span></div><button class="secondary" onclick="speak('Your available demo balance is twelve thousand four hundred fifty rupees and seventy five paise.')">🔊 Hear Balance</button></div>
+      <div class="card"><h3>Recent transactions</h3><div id="balanceTransactions"></div></div>
+    </section>
+
+    <section id="page-bills" class="page">
+      <div class="page-title"><div><h1 data-i18n="payBill">Pay a Bill</h1><p>Choose an essential service to simulate a payment.</p></div></div>
+      <div class="quick-grid bill-grid">
+        <button class="quick blue" onclick="billDemo('Electricity Bill')"><strong>⚡</strong><b>Electricity</b><small>Pay bill</small></button>
+        <button class="quick green" onclick="billDemo('Mobile Recharge')"><strong>📱</strong><b>Mobile</b><small>Recharge</small></button>
+        <button class="quick orange" onclick="billDemo('DTH')"><strong>📺</strong><b>DTH</b><small>Recharge</small></button>
+        <button class="quick red" onclick="billDemo('Water Bill')"><strong>💧</strong><b>Water</b><small>Pay bill</small></button>
+      </div>
+    </section>
+
+    <section id="page-upi" class="page">
+      <div class="page-title"><div><h1 data-i18n="changeUpi">Change UPI PIN</h1><p>We never store or display your real UPI PIN.</p></div></div>
+      <div class="card form-card">
+        <label>Current UPI PIN<input id="oldPin" type="password" inputmode="numeric" maxlength="6"></label>
+        <label>New UPI PIN<input id="newPin" type="password" inputmode="numeric" maxlength="6"></label>
+        <label>Confirm New UPI PIN<input id="newPin2" type="password" inputmode="numeric" maxlength="6"></label>
+        <button class="primary" onclick="changeUpiPin()">Save New PIN</button>
+        <div id="upiMsg" class="muted"></div>
+      </div>
+    </section>
+
+    <section id="page-forgotPin" class="page">
+      <div class="page-title"><div><h1 data-i18n="forgotUpi">Forgot UPI PIN</h1><p>For safety, PIN reset is simulated and does not connect to a real bank.</p></div></div>
+      <div class="card form-card">
+        <h3>Verify your identity</h3>
+        <label>Choose verification method<select id="verifyMethod"><option>Debit Card</option><option>Internet Banking</option><option>Aadhaar (if supported by bank)</option></select></label>
+        <label>Last 4 digits / reference<input id="verifyRef" maxlength="4" inputmode="numeric" placeholder="1234"></label>
+        <button class="primary" onclick="resetUpiPin()">Continue Securely</button>
+        <div id="forgotMsg" class="muted"></div>
+      </div>
+    </section>
+
+    <section id="page-scam" class="page">
+      <div class="page-title"><div><h1 data-i18n="checkMessage">Check a Message</h1><p>Paste a suspicious SMS, WhatsApp or email message.</p></div></div>
+      <div class="card">
+        <textarea id="scamText" rows="8" placeholder="Paste the message here..."></textarea>
+        <button class="primary" onclick="checkScam()">🔍 Check for Scam</button>
+        <div id="scamResult"></div>
+      </div>
+    </section>
+
+    <section id="page-history" class="page">
+      <div class="page-title"><div><h1 data-i18n="history">History</h1><p>Your local demo activity.</p></div></div>
+      <div class="card"><div id="historyList"></div></div>
+    </section>
+
+    <section id="page-settings" class="page">
+      <div class="page-title"><div><h1 data-i18n="settings">Settings</h1><p>Customize your experience for easy and safe use.</p></div></div>
+      <div class="settings-grid">
+        <div class="card">
+          <h3>🌐 Language</h3><select id="settingsLanguage"><option value="en">English</option><option value="hi">हिन्दी</option><option value="kn">ಕನ್ನಡ</option><option value="bn">বাংলা</option></select>
+          <h3>🎙 Voice Assistant</h3>
+          <label>Speech speed<input id="speechSpeed" type="range" min=".7" max="1.3" step=".05" value="1"></label>
+          <button class="secondary" onclick="speakCurrentLanguage()">▶ Test Voice</button>
+        </div>
+        <div class="card">
+          <h3>🔒 App Lock (Password Protection)</h3>
+          <label class="switch-row">Enable App Lock <input id="appLock" type="checkbox"><span class="switch"></span></label>
+          <button class="secondary" onclick="setAppPassword()">Set / Change Password</button>
+          <button class="link-btn" onclick="forgotAppPassword()">Forgot App Password?</button>
+          <h3>♿ Senior Mode</h3>
+          <label class="switch-row">Large & simple UI <input id="seniorMode" type="checkbox" checked><span class="switch"></span></label>
+          <h3>🛡 Safety</h3>
+          <label class="switch-row">Voice confirmation before payment <input id="voiceConfirm" type="checkbox" checked><span class="switch"></span></label>
+          <label class="switch-row">Scam alerts before money moves <input id="scamAlert" type="checkbox" checked><span class="switch"></span></label>
+          <h3>✨ Animations</h3>
+          <label class="switch-row">Smooth animations <input id="animations" type="checkbox" checked><span class="switch"></span></label>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="app.js?v=3"></script>
+</body>
+</html>
