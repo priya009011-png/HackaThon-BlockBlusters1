@@ -1,0 +1,23 @@
+{
+  "name": "easy-pay-assistant",
+  "version": "1.0",
+  "loop": true,
+  "animations": [
+    {
+      "id": "assistant_float",
+      "type": "float",
+      "duration_ms": 3000,
+      "distance_px": 10
+    },
+    {
+      "id": "voice_wave",
+      "type": "pulse",
+      "duration_ms": 1000
+    },
+    {
+      "id": "safety_scan",
+      "type": "pulse",
+      "duration_ms": 1200
+    }
+  ]
+}
